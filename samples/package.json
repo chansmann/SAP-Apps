@@ -1,0 +1,80 @@
+{
+  "name": "@capire/samples",
+  "version": "2.0.0",
+  "description": "A monorepo with several samples for CAP.",
+  "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
+  "author": "daniel.hutzel@sap.com",
+  "dependencies": {
+    "@capire/bookshop": "./bookshop",
+    "@capire/bookstore": "./bookstore",
+    "@capire/common": "./common",
+    "@capire/data-viewer": "./data-viewer",
+    "@capire/fiori": "./fiori",
+    "@capire/hello": "./hello",
+    "@capire/media": "./media",
+    "@capire/orders": "./orders",
+    "@capire/reviews": "./reviews",
+    "@sap/cds": "^5.9.4",
+    "@sap/cds-mtx": "^2",
+    "@sap/xssec": "^3",
+    "hdb": "^0.19.0",
+    "passport": "^0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "chai-subset": "^1.6.0",
+    "semver": "^7",
+    "sqlite3": "^5"
+  },
+  "scripts": {
+    "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
+    "registry": "node .registry/server.js",
+    "bookshop": "cds watch bookshop",
+    "fiori": "cds watch fiori",
+    "hello": "cds watch hello",
+    "media": "cds watch media",
+    "mocha": "npx mocha || echo",
+    "jest": "npx jest",
+    "start": "cds watch fiori",
+    "test": "npm run jest -- --silent",
+    "test:hello": "cd hello && npm test"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testTimeout": 20000,
+    "testMatch": [
+      "**/*.test.js"
+    ]
+  },
+  "mocha": {
+    "recursive": true,
+    "parallel": true
+  },
+  "license": "SAP SAMPLE CODE LICENSE",
+  "private": true,
+  "cds": {
+    "requires": {
+      "[production]": {
+        "db": {
+          "kind": "hana-mt"
+        },
+        "auth": {
+          "kind": "xsuaa"
+        },
+        "approuter": {
+          "kind": "cloudfoundry"
+        },
+        "multitenancy": true
+      },
+      "db": {
+        "kind": "sql"
+      }
+    },
+    "mtx": {
+      "element-prefix": "Z_",
+      "namespace-blocklist": [],
+      "extension-allowlist": []
+    }
+  }
+}
